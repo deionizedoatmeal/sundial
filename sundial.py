@@ -97,6 +97,6 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
     # display 12:01
-    for x in range(0,9,1):
+    for x in range(0,10,1):
         display(strip, Color(12,190,256), Color(15,5,5), 1, 2, x, 1)
         time.sleep(1)
