@@ -19,7 +19,7 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 # define the LEDs to be illuminated to render to the digits
 # first position
 zero_0 = []
-zero_1=[33,37,71,76,109]
+zero_1 =[33,37,71,76,109]
 zero_2 = []
 zero_3 = []
 zero_4 = []
@@ -31,45 +31,45 @@ zero_9 = []
 zero = [zero_0,zero_1,zero_2,zero_3,zero_4,zero_5,zero_6,zero_7,zero_8,zero_9]
 
 # second position
-one_0=[]
-one_1=[]
-one_2=[29,28,40,67,66,81,104,105]
-one_3=[]
-one_4=[]
-one_5=[]
-one_6=[]
-one_7=[]
-one_8=[]
-one_9=[]
+one_0 = []
+one_1 = []
+one_2 = [29,28,40,67,66,81,104,105]
+one_3 = []
+one_4 = []
+one_5 = []
+one_6 = []
+one_7 = []
+one_8 = []
+one_9 = []
 one = [one_0,one_1,one_2,one_3,one_4,one_5,one_6,one_7,one_8,one_9]
 
 # colon
 colon=[44,83]
 
 # third position
-two_0=[46,85,99,98,87,62,59,48,23,22]
-two_1=[22,48,60,87,98]
-two_2=[22,23,60,61,87,98,99,46]
-two_3=[23,22,99,98,60,61,87,48]
-two_4=[23,47,60,87,97,99,85,61,62]
-two_5=[85,99,98,61,60,48,23,22]
-two_6=[46,85,99,98,22,23,48,61,60]
-two_7=[23,47,60,87,97,98,99]
-two_8=[46,85,99,98,87,61,60,48,23,22]
-two_9=[85,99,98,87,61,60,48,23,22]
+two_0 = [46,85,99,98,87,62,59,48,23,22]
+two_1 = [22,48,60,87,98]
+two_2 = [22,23,60,61,87,98,99,46]
+two_3 = [23,22,99,98,60,61,87,48]
+two_4 = [23,47,60,87,97,99,85,61,62]
+two_5 = [85,99,98,61,60,48,23,22]
+two_6 = [46,85,99,98,22,23,48,61,60]
+two_7 = [23,47,60,87,97,98,99]
+two_8 = [46,85,99,98,87,61,60,48,23,22]
+two_9 = [85,99,98,87,61,60,48,23,22]
 two = [two_0,two_1,two_2,two_3,two_4,two_5,two_6,two_7,two_8,two_9]
 
 #fourth position
-three_0=[]
-three_1=[18,52,56,91,94]
-three_2=[]
-three_3=[]
-three_4=[]
-three_5=[]
-three_6=[]
-three_7=[]
-three_8=[]
-three_9=[]
+three_0 = []
+three_1 = [18,52,56,91,94]
+three_2 = []
+three_3 = []
+three_4 = []
+three_5 = []
+three_6 = []
+three_7 = []
+three_8 = []
+three_9 = []
 three = [three_0,three_1,three_2,three_3,three_4,three_5,three_6,three_7,three_8,three_9]
 
 def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
@@ -97,6 +97,6 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
     # display 12:01
-    for x in range(9):
+    for x in range(0,9,1):
         display(strip, Color(12,190,256), Color(15,5,5), 1, 2, x, 1)
         time.sleep(1)
