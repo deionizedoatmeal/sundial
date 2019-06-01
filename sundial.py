@@ -137,9 +137,9 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
     foreground = zero[digit0] + one[digit1] + colon + two[digit2] + three[digit3]
 
     # check to see if an LED is in the foreground, if not, add to background list
-    background  = []
+    background = []
     for a in range(128):
-        if a in foreground == False:
+        if a not in foreground:
             background.append(a)
 
     print(foreground)
@@ -150,6 +150,8 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
         strip.setPixelColor(b, colorfg)
     for c in background:
         strip.setPixelColor(c, colorbg)
+
+    strip.show()
 
     # for a in zero[digit0]:
     #     strip.setPixelColor(a, colorfg)
@@ -177,5 +179,7 @@ if __name__ == '__main__':
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # intialize the library (must be called once before other functions)
     strip.begin()
-    # exit conditon
-    display(strip, Color(5,100,177), Color(23,5,6), 1, 2, 9, 1)
+    # display 12:01
+    for x in range(9):
+        display(strip, Color(12,190,256), Color(15,5,5), 1, x, 0, 1)
+        time.sleep(1)
