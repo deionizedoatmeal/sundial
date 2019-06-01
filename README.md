@@ -6,6 +6,3 @@ Components:
   -> 129 WS2812 strip LEDs
   -> Assorted connectors, wires, and breadboard
 ![Clock](clock.jpeg)
-Format: ![Alt Text](url)
-
-![title](https://github.com/deionizedoatmeal/sundial/clock.jpeg)
