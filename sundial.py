@@ -132,27 +132,44 @@ three = [three_0,three_1,three_2,three_3,three_4,three_5,three_6,three_7,three_8
 
 def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
     """takes 2 colors and 4 digits, then displays them on the panel"""
-    #colorWipe(strip, Color(0,59,0))
 
-    for a in zero[digit0]:
-        strip.setPixelColor(a, colorfg)
-        strip.show()
+    # concatinate the digit lists (such as zero_3[] which resides inside the positon list zero[]) into a foreground list
+    foreground = zero[digit0] + one[digit1] + colon + two[digit2] + three[digit3]
 
-    for b in one[digit1]:
+    # check to see if an LED is in the foreground, if not, add to background list
+    background  = []
+    for a in range(128):
+        if a in foreground == False:
+            background.append(a)
+
+    print(foreground)
+    print(background)
+
+    # show fore and background on pannel in respective colors
+    for b in foreground:
         strip.setPixelColor(b, colorfg)
-        strip.show()
+    for c in background:
+        strip.setPixelColor(c, colorbg)
 
-    for c in colon:
-        strip.setPixelColor(c, colorfg)
-        strip.show()
-
-    for d in two[digit2]:
-        strip.setPixelColor(d, colorfg)
-        strip.show()
-
-    for e in three[digit3]:
-        strip.setPixelColor(e, colorfg)
-        strip.show()
+    # for a in zero[digit0]:
+    #     strip.setPixelColor(a, colorfg)
+    #     strip.show()
+    # # and so on
+    # for b in one[digit1]:
+    #     strip.setPixelColor(b, colorfg)
+    #     strip.show()
+    #
+    # for c in colon:
+    #     strip.setPixelColor(c, colorfg)
+    #     strip.show()
+    #
+    # for d in two[digit2]:
+    #     strip.setPixelColor(d, colorfg)
+    #     strip.show()
+    #
+    # for e in three[digit3]:
+    #     strip.setPixelColor(e, colorfg)
+    #     strip.show()
 
 
 if __name__ == '__main__':
@@ -161,10 +178,4 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
     # exit conditon
-    print ('Press Ctrl-C to quit.')
-
-    try:
-        while True:
-            display(strip, Color(5,100,177), Color(23,5,6), 1, 2, 9, 1)
-    except KeyboardInterrupt:
-        colorWipe(strip, Color(0,0,0), 10)
+    display(strip, Color(5,100,177), Color(23,5,6), 1, 2, 9, 1)
