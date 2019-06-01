@@ -5,4 +5,4 @@ Components:
   -> 5v, 10A power supply
   -> 129 WS2812 strip LEDs
   -> Assorted connectors, wires, and breadboard
-![title](https://github.com/deionizedoatmeal/sundial.git/clock.jpeg)
+![title](https://github.com/deionizedoatmeal/sundial/clock.jpeg)
