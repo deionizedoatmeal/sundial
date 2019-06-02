@@ -161,6 +161,7 @@ def invertANDscale(BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
     for m in range(3):
         fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
         bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
+    return fg and bg
 
 ########
 # MAIN #
