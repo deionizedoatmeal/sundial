@@ -37,7 +37,7 @@ one_0 = [28,29,42,65,81,104,105,79,68,40]
 one_1 = [28,42,66,81,104]
 one_2 = [29,28,40,67,66,81,104,105]
 one_3 = [29,28,42,67,66,81,104,105]
-one_4 = [29,41,66,67,65,81,103,105,79]
+one_4 = [29,41,66,67,68,65,81,103,105,79]
 one_5 = [29,28,42,67,66,79,104,105]
 one_6 = [29,28,42,67,66,79,104,105,40]
 one_7 = [29,41,66,81,103,104,105]
@@ -156,11 +156,5 @@ if __name__ == '__main__':
 
 
     for x in range(10):
-        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,0,0,x)
-        time.sleep(1)
-    for x in range(10):
-        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,0,x,0)
-        time.sleep(1)
-    for x in range(10):
-        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,x,0,0)
-        time.sleep(1)
+        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,x,x,x)
+        time.sleep(5)
