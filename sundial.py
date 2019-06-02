@@ -152,10 +152,11 @@ if __name__ == '__main__':
 
     BRIGHTfg = 1
     BIRGHTbg = .2
-
+    RAWbg = []
     RAWfg = [0.5, 0.1, 1]
-    RAWbg = 1 - RAWfg
-
+    for j in RAWfg:
+        RAWbg[j] = 1 - RAWfg[j]
+                
     fg = BRIGHTfg * 255 * RAWfg
     bg = BRIGHTbg * 255 * RAWbg
 
