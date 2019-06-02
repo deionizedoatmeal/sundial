@@ -3,6 +3,7 @@
 # made by Ian K. Bania, June 2019
 
 import datetime
+currentDT = datetime.datetime.now()
 import time
 import subprocess
 from neopixel import *
