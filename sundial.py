@@ -139,14 +139,14 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
 
-    fG = .05
-    fB = .7
-    fR = 1
+    fG = .5
+    fB = 1
+    fR = .1
     bG = 1
     bB = .3
     bR = .3
     fgbright = 1
-    bgbright = .07
+    bgbright = 0
     abs_fG = int(256 * fG * fgbright)
     abs_fB = int(256 * fB * fgbright)
     abs_fR = int(256 * fR * fgbright)
