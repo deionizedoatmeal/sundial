@@ -78,7 +78,11 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
     """takes 2 colors and 4 digits, then displays them on the panel"""
 
     # concatinate the digit lists (such as zero_3[] which resides inside the positon list zero[]) into a foreground list
-    foreground = zero[digit0] + one[digit1] + colon + two[digit2] + three[digit3]
+    # allow to colon to be shown on even seconds, blink effect
+    if datetime.datetime.now().second % 2 == 0:
+        foreground = zero[digit0] + one[digit1] + colon + two[digit2] + three[digit3]
+    else:
+        foreground = zero[digit0] + one[digit1] + two[digit2] + three[digit3]
 
     # check to see if an LED is in the foreground, if not, add to background list
     background = []
