@@ -162,6 +162,8 @@ if __name__ == '__main__':
     #RAWbg = [1,1,1] #overcast
     RAWbg = [39/255, 171/255, 79/255]
     RAWfg = [1- RAWbg[0], 1 - RAWbg[1], 1 - RAWbg[2]]
+    print(RAWbg)
+    print(RAWfg)
     # mix the values with the brightness multipler
     for m in range(3):
         fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
