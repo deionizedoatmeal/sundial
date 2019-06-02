@@ -1,5 +1,7 @@
 #!/bin/bash
 cd
+sudo pkill python
+
 # remove old version
 sudo rm -r ~/sundial
 
@@ -10,5 +12,3 @@ git clone https://github.com/deionizedoatmeal/sundial.git
 sudo cp ~/sundial/updateclock.sh /bin/updateclock
 
 # start the clock
-sudo python ~/sundial/sundial.py
-
