@@ -141,22 +141,6 @@ def timedisplay(strip, colorfg, colorbg):
 
     display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
 
-def invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
-    """takes raw background RGB ratios and brightness, creates final RGB values with the foreground inverted"""
-    # invert the background to foreground
-    RAWfg[0] = 1 - RAWbg[0]
-    RAWfg[1] = 1 - RAWbg[1]
-    RAWfg[2] = 1 - RAWbg[2]
-    # initalize the lists for the final values
-    fg = [0, 0, 0]
-    bg = [0, 0 ,0]
-    # mix the values with the brightness multipler
-    for m in range(3):
-        fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
-        bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
-    # clock function with the calculated colors
-    timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
-
 
 ########
 # MAIN #
@@ -167,16 +151,19 @@ if __name__ == '__main__':
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # intialize the library (must be called once before other functions)
     strip.begin()
-
     # brightness setting
     BRIGHTfg = 1
     BRIGHTbg = 1
-
     # color setting
-    RAWfg = [0, 0, 1]
     #RAWbg = [226/255, 201/255, 1] #skyblue
     #RAWbg = [1,1,1] #overcast
     RAWbg = [39/255, 171/255, 79/255]
-
+    RAWfg = [1- RAWbg[0], 1 - RAWbg[1], 1 - RAWbg[2]]
+    # mix the values with the brightness multipler
+    for m in range(3):
+        fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
+        bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
+    # call clock function with the calculated colors
     while True:
-        invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
+        timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
+    
