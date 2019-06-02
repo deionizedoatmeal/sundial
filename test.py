@@ -139,14 +139,14 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
 
-    fG = .05
-    fB = .7
-    fR = 1
+    fG = .6
+    fB = 1
+    fR = .2
     bG = 1
     bB = .3
     bR = .3
     fgbright = 1
-    bgbright = .07
+    bgbright = 0
     abs_fG = int(256 * fG * fgbright)
     abs_fB = int(256 * fB * fgbright)
     abs_fR = int(256 * fR * fgbright)
@@ -154,6 +154,13 @@ if __name__ == '__main__':
     abs_bB = int(256 * bB * bgbright)
     abs_bR = int(256 * bR * bgbright)
 
-    while True:
-        timedisplay(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR))
-        #time.sleep(1)
+
+    for x range(10):
+        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,0,0,x)
+        time.sleep(1)
+    for x range(10):
+        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,0,x,0)
+        time.sleep(1)
+    for x range(10):
+        display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,x,0,0)
+        time.sleep(1)
