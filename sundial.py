@@ -95,15 +95,15 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
 
 def time(strip, brightness, colorfg, colorbg):
     file = open(".alarm", "r")
-        hour = file.readline(1)
-        min = file.readline(2)
-        ampm = file.readline(3)
+    hour = file.readline(1)
+    min = file.readline(2)
+    ampm = file.readline(3)
 
     file = open(".sunrise", "r")
-        buffer = readline(1)
+    buffer = readline(1)
 
     file = open(".sound", "r")
-        sound = readline(1)
+    sound = readline(1)
 
 
 
