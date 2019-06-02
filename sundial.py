@@ -159,10 +159,9 @@ if __name__ == '__main__':
     RAWbg[2] = 1 - RAWfg[2]
     fg = [0, 0, 0]
     bg = [0, 0 ,0]
-    for m in RAWfg:
+    for m in range(3):
         fg[m] = RAWfg[m] * 255 * BRIGHTfg
-    for n in RAWbg:
-        bg[n] = BRIGHTbg * 255 * RAWbg[n]
+        bg[m] = BRIGHTbg * 255 * RAWbg[m]
 
     # abs_fG = int(256 * fG * fgbright)
     # abs_fB = int(256 * fB * fgbright)
