@@ -33,7 +33,8 @@ zero_9 = []
 zero = [zero_0,zero_1,zero_2,zero_3,zero_4,zero_5,zero_6,zero_7,zero_8,zero_9]
 
 # second position
-one_0 = [28,29,42,65,81,104,105,79,68,40]
+#one_0 = [28,29,42,65,81,104,105,79,68,40]
+one_0 = []
 one_1 = [28,42,66,81,104]
 one_2 = [29,28,40,67,66,81,104,105]
 one_3 = [29,28,42,67,66,81,104,105]
@@ -140,19 +141,8 @@ def timedisplay(strip, colorfg, colorbg):
 
     display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
 
-def wheel(pos):
-    """generates rainbow colors across 0-255 positions."""
-    if pos < 85:
-        return Color(pos * 3, 255 - pos * 3, 0)
-    elif pos < 170:
-        pos -= 85
-        return Color(255 - pos * 3, 0, pos * 3)
-    else:
-        pos -= 170
-        return Color(0, pos * 3, 255 - pos * 3)
-
 def invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
-    """takes raw RGB ratios and brightness, creates final RGB values with the background inverted"""
+    """takes raw foreground RGB ratios and brightness, creates final RGB values with the background inverted"""
     RAWbg[0] = 1 - RAWfg[0]
     RAWbg[1] = 1 - RAWfg[1]
     RAWbg[2] = 1 - RAWfg[2]
@@ -174,36 +164,13 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
 
-    # fG = .5
-    # fB = 1
-    # fR = .1
-    # bG = 1
-    # bB = .3
-    # bR = .3
-
     # brightness setting
     BRIGHTfg = 1
-    BRIGHTbg = .2
+    BRIGHTbg = 0
 
     # color setting
-    RAWfg = [0.5, 0.1, 1]
+    RAWfg = [0, 0, 1]
     RAWbg = [0.5, 0.9, 0]
 
     while True:
         invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
-
-    # RAWbg[0] = 1 - RAWfg[0]
-    # RAWbg[1] = 1 - RAWfg[1]
-    # RAWbg[2] = 1 - RAWfg[2]
-    # fg = [0, 0, 0]
-    # bg = [0, 0 ,0]
-    # for m in range(3):
-    #     fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
-    #     bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
-
-    # abs_fG = int(256 * fG * fgbright)
-    # abs_fB = int(256 * fB * fgbright)
-    # abs_fR = int(256 * fR * fgbright)
-    # abs_bG = int(256 * bG * bgbright)
-    # abs_bB = int(256 * bB * bgbright)
-    # abs_bR = int(256 * bR * bgbright)
