@@ -93,18 +93,43 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
         strip.setPixelColor(c, colorbg)
     strip.show()
 
-def time(strip, brightness, colorfg, colorbg):
-    file = open(".alarm", "r")
-    hour = file.readline(1)
-    min = file.readline(2)
-    ampm = file.readline(3)
+def timedisplay(strip, colorfg, colorbg):
+    # file = open(".alarm", "r")
+    # alarm0 = file.readline(1)
+    # alarm1 = file.readline(2)
+    # alarm2 = file.readline(3)
+    # alarm3 = file.readline(4)
+    # alarmPM = file.readline(5)
+    #
+    # file = open(".sunrise", "r")
+    # buffer = readline(1)
+    #
+    # file = open(".sound", "r")
+    # sound = readline(1)
 
-    file = open(".sunrise", "r")
-    buffer = readline(1)
+    digit2 = currentDT.minute // 10
+    digit3 = currentDT.minute % 10
 
-    file = open(".sound", "r")
-    sound = readline(1)
+    if currentDT.hour >= 12:
+        PM = 1
+        hour12pm = currentDT.hour - 12
+        if hour12pm == 0:
+            digit0 = 1
+            digit1 = 2
+        else:
+            digit0 = hour12pm // 10
+            digit1 = hour12pm % 10
+    else:
+        PM = 0
+        if currentDT.hour == 0:
+            digit0 = 1
+            digit1 = 2
+        else:
+            digit0 =  currentDT.hour // 10
+            digit1 = currentDT.hour % 10
 
+    display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
+#    if digit0 == alarm0 and digit1 == alarm1 and digit2 == alarm2 and digit3 == alarm3 and PM = alarmPM:
 
 
 if __name__ == '__main__':
@@ -113,12 +138,21 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
 
-    foreG = .05
-    foreB = .7
-    foreR = 1
-    backG = 1
-    backB = .3
-    backR = .3
+    fG = .05
+    fB = .7
+    fR = 1
+    bG = 1
+    bB = .3
+    bR = .3
     fgbright = 1
     bgbright = .07
-    display(strip, Color(256*foreG*fgbright,256*foreB*fgbright,256*foreR*fgbright), Color(256*backG*bgbright, 256*backB*bgbright, 256*backR*bgbright), 1, 2, 7, 1)
+    abs_fG = int(256 * fG * fgbright)
+    abs_fB = int(256 * fB * fgbright)
+    abs_fR = int(256 * fR * fgbright)
+    abs_bG = int(256 * bG * bgbright)
+    abs_bB = int(256 * bB * bgbright)
+    abs_bR = int(256 * bR * bgbright)
+
+    while True:
+        timedisplay(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR))
+        time.sleep(0.5)
