@@ -151,12 +151,12 @@ if __name__ == '__main__':
     # bR = .3
 
     BRIGHTfg = 1
-    BIRGHTbg = .2
+    BRIGHTbg = .2
     RAWfg = [0.5, 0.1, 1]
     RAWbg = [0.5, 0.9, 0]
     RAWbg[0] = 1 - RAWfg[0]
     RAWbg[1] = 1 - RAWfg[1]
-    RAWbg[2] = 1 - RAWfg[2]            
+    RAWbg[2] = 1 - RAWfg[2]
     fg = BRIGHTfg * 255 * RAWfg
     bg = BRIGHTbg * 255 * RAWbg
 
