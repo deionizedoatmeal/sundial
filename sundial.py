@@ -3,7 +3,6 @@
 # made by Ian K. Bania, June 2019
 
 import datetime
-currentDT = datetime.datetime.now()
 import time
 import subprocess
 from neopixel import *
@@ -70,9 +69,9 @@ three_3 = [95,94,91,56,57,52,18,19]
 three_4 = [19,51,56,91,93,57,58,89,95]
 three_5 = [94,95,89,57,56,52,18,19]
 three_6 = [94,95,89,57,56,52,18,19,50]
-three_7 = [19,51,56,91,93,94,95,96]
-three_8 = [94,68,89,57,56,52,18,19,91,95,50]
-three_9 = [94,68,89,57,56,52,18,19]
+three_7 = [19,51,56,91,93,94,95]
+three_8 = [94,89,57,56,52,18,19,91,95,50]
+three_9 = [94,89,57,56,52,18,19,95,91]
 three = [three_0,three_1,three_2,three_3,three_4,three_5,three_6,three_7,three_8,three_9]
 
 def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
@@ -108,12 +107,12 @@ def timedisplay(strip, colorfg, colorbg):
     # file = open(".sound", "r")
     # sound = readline(1)
 
-    digit2 = currentDT.minute // 10
-    digit3 = currentDT.minute % 10
+    digit2 = datetime.datetime.now().minute // 10
+    digit3 = datetime.datetime.now().minute % 10
 
     if currentDT.hour >= 12:
         PM = 1
-        hour12pm = currentDT.hour - 12
+        hour12pm = datetime.datetime.now().hour - 12
         if hour12pm == 0:
             digit0 = 1
             digit1 = 2
@@ -122,12 +121,12 @@ def timedisplay(strip, colorfg, colorbg):
             digit1 = hour12pm % 10
     else:
         PM = 0
-        if currentDT.hour == 0:
+        if datetime.datetime.now().hour == 0:
             digit0 = 1
             digit1 = 2
         else:
-            digit0 = currentDT.hour // 10
-            digit1 = currentDT.hour % 10
+            digit0 = datetime.datetime.now().hour // 10
+            digit1 = datetime.datetime.now().hour % 10
 
     display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
 
@@ -157,5 +156,4 @@ if __name__ == '__main__':
 
     while True:
         timedisplay(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR))
-        print(currentDT.minute)
         #time.sleep(1)
