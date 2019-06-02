@@ -160,7 +160,7 @@ if __name__ == '__main__':
     fg = [0, 0, 0]
     bg = [0, 0 ,0]
     for m in RAWfg:
-        fg[m] = RAW[m] * 255 * BRIGHTfg
+        fg[m] = RAWfg[m] * 255 * BRIGHTfg
     for n in RAWbg:
         bg[n] = BRIGHTbg * 255 * RAWbg[n]
 
