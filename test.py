@@ -155,12 +155,12 @@ if __name__ == '__main__':
     abs_bR = int(256 * bR * bgbright)
 
 
-    for x range(10):
+    for x in range(10):
         display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,0,0,x)
         time.sleep(1)
-    for x range(10):
+    for x in range(10):
         display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,0,x,0)
         time.sleep(1)
-    for x range(10):
+    for x in range(10):
         display(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR),1,x,0,0)
         time.sleep(1)
