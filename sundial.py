@@ -154,6 +154,9 @@ if __name__ == '__main__':
     # brightness setting
     BRIGHTfg = 1
     BRIGHTbg = 1
+    # initialize lists
+    fg = [0, 0, 0]
+    bg = [0, 0, 0]
     # color setting
     #RAWbg = [226/255, 201/255, 1] #skyblue
     #RAWbg = [1,1,1] #overcast
@@ -166,4 +169,3 @@ if __name__ == '__main__':
     # call clock function with the calculated colors
     while True:
         timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
-    
