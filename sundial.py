@@ -74,6 +74,10 @@ three_8 = [94,89,57,56,52,18,19,91,95,50]
 three_9 = [94,89,57,56,51,19,95,91]
 three = [three_0,three_1,three_2,three_3,three_4,three_5,three_6,three_7,three_8,three_9]
 
+############
+# END DATA #
+############
+
 def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
     """takes 2 colors and 4 digits, then displays them on the panel"""
 
@@ -98,6 +102,8 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
     strip.show()
 
 def timedisplay(strip, colorfg, colorbg):
+    """takes colors in final form, and calls the display to print the time"""
+
     # file = open(".alarm", "r")
     # alarm0 = file.readline(1)
     # alarm1 = file.readline(2)
@@ -134,8 +140,31 @@ def timedisplay(strip, colorfg, colorbg):
 
     display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
 
-#    if digit0 == alarm0 and digit1 == alarm1 and digit2 == alarm2 and digit3 == alarm3 and PM = alarmPM:
+def wheel(pos):
+    """generates rainbow colors across 0-255 positions."""
+    if pos < 85:
+        return Color(pos * 3, 255 - pos * 3, 0)
+    elif pos < 170:
+        pos -= 85
+        return Color(255 - pos * 3, 0, pos * 3)
+    else:
+        pos -= 170
+        return Color(0, pos * 3, 255 - pos * 3)
 
+def invertANDscale(BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
+    """takes raw RGB ratios and brightness, creates final RGB values with the background inverted"""
+    RAWbg[0] = 1 - RAWfg[0]
+    RAWbg[1] = 1 - RAWfg[1]
+    RAWbg[2] = 1 - RAWfg[2]
+    fg = [0, 0, 0]
+    bg = [0, 0 ,0]
+    for m in range(3):
+        fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
+        bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
+
+########
+# MAIN #
+########
 
 if __name__ == '__main__':
     # create NeoPixel object with appropriate configuration
@@ -150,18 +179,24 @@ if __name__ == '__main__':
     # bB = .3
     # bR = .3
 
+    # brightness setting
     BRIGHTfg = 1
     BRIGHTbg = .2
+
+    # color setting
     RAWfg = [0.5, 0.1, 1]
     RAWbg = [0.5, 0.9, 0]
-    RAWbg[0] = 1 - RAWfg[0]
-    RAWbg[1] = 1 - RAWfg[1]
-    RAWbg[2] = 1 - RAWfg[2]
-    fg = [0, 0, 0]
-    bg = [0, 0 ,0]
-    for m in range(3):
-        fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
-        bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
+
+    invertANDscale(BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
+
+    # RAWbg[0] = 1 - RAWfg[0]
+    # RAWbg[1] = 1 - RAWfg[1]
+    # RAWbg[2] = 1 - RAWfg[2]
+    # fg = [0, 0, 0]
+    # bg = [0, 0 ,0]
+    # for m in range(3):
+    #     fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
+    #     bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
 
     # abs_fG = int(256 * fG * fgbright)
     # abs_fB = int(256 * fB * fgbright)
@@ -172,4 +207,3 @@ if __name__ == '__main__':
 
     while True:
         timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
-        #time.sleep(1)
