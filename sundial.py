@@ -110,7 +110,7 @@ def timedisplay(strip, colorfg, colorbg):
     digit2 = datetime.datetime.now().minute // 10
     digit3 = datetime.datetime.now().minute % 10
 
-    if currentDT.hour >= 12:
+    if datetime.datetime.now().hour >= 12:
         PM = 1
         hour12pm = datetime.datetime.now().hour - 12
         if hour12pm == 0:
