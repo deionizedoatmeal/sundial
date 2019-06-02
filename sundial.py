@@ -156,5 +156,4 @@ if __name__ == '__main__':
 
     while True:
         timedisplay(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR))
-        print(digit0, digit1, digit2, digit3, pm)
         time.sleep(0.5)
