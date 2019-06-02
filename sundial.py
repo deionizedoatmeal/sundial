@@ -167,5 +167,7 @@ if __name__ == '__main__':
         fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
         bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
     # call clock function with the calculated colors
+    print(bg)
+    print(fg)
     while True:
         timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
