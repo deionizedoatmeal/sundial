@@ -151,7 +151,7 @@ def wheel(pos):
         pos -= 170
         return Color(0, pos * 3, 255 - pos * 3)
 
-def invertANDscale(BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
+def invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
     """takes raw RGB ratios and brightness, creates final RGB values with the background inverted"""
     RAWbg[0] = 1 - RAWfg[0]
     RAWbg[1] = 1 - RAWfg[1]
@@ -161,7 +161,8 @@ def invertANDscale(BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
     for m in range(3):
         fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
         bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
-    return fg and bg
+    timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
+
 
 ########
 # MAIN #
@@ -188,7 +189,8 @@ if __name__ == '__main__':
     RAWfg = [0.5, 0.1, 1]
     RAWbg = [0.5, 0.9, 0]
 
-    invertANDscale(BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
+    while True:
+        invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
 
     # RAWbg[0] = 1 - RAWfg[0]
     # RAWbg[1] = 1 - RAWfg[1]
@@ -205,6 +207,3 @@ if __name__ == '__main__':
     # abs_bG = int(256 * bG * bgbright)
     # abs_bB = int(256 * bB * bgbright)
     # abs_bR = int(256 * bR * bgbright)
-
-    while True:
-        timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
