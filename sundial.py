@@ -20,7 +20,7 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 # define the LEDs to be illuminated to render to the digits
 # first position
-zero_0 = []
+zero_0 = [33,36,72,75,109,108,77,69,38,32]
 zero_1 = [32,38,70,77,108]
 zero_2 = []
 zero_3 = []
