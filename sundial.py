@@ -126,10 +126,11 @@ def timedisplay(strip, colorfg, colorbg):
             digit0 = 1
             digit1 = 2
         else:
-            digit0 =  currentDT.hour // 10
+            digit0 = currentDT.hour // 10
             digit1 = currentDT.hour % 10
 
     display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
+
 #    if digit0 == alarm0 and digit1 == alarm1 and digit2 == alarm2 and digit3 == alarm3 and PM = alarmPM:
 
 
@@ -156,4 +157,5 @@ if __name__ == '__main__':
 
     while True:
         timedisplay(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR))
-        time.sleep(0.5)
+        print(currentDT.minute)
+        #time.sleep(1)
