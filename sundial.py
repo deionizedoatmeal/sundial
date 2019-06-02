@@ -174,7 +174,8 @@ if __name__ == '__main__':
 
     # color setting
     RAWfg = [0, 0, 1]
-    RAWbg = [226/255, 201/255, 1]
-
+    #RAWbg = [226/255, 201/255, 1] #skyblue
+    #RAWbg = [1,1,1] #overcast
+    RAWbg = [39/255, 171/255, 79/255]
     while True:
         invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
