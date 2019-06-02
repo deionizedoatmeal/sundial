@@ -157,8 +157,8 @@ if __name__ == '__main__':
     RAWbg[0] = 1 - RAWfg[0]
     RAWbg[1] = 1 - RAWfg[1]
     RAWbg[2] = 1 - RAWfg[2]
-    fg[] = [0, 0, 0]
-    bg[] = [0, 0 ,0]
+    fg = [0, 0, 0]
+    bg = [0, 0 ,0]
     for m in RAWfg:
         fg[m] = RAW[m] * 255 * BRIGHTfg
     for n in RAWbg:
