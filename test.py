@@ -155,7 +155,7 @@ def invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
         fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
         bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
     # clock function with the calculated colors
-    timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
+    display(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]),0,4,4,4)
 
 
 ########
