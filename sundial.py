@@ -2,7 +2,9 @@
 # sundial - LED sunrise alarm clock
 # made by Ian K. Bania, June 2019
 
+import datetime
 import time
+import subprocess
 from neopixel import *
 
 # LED strip configuration:
@@ -91,12 +93,32 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
         strip.setPixelColor(c, colorbg)
     strip.show()
 
+def time(strip, brightness, colorfg, colorbg):
+    file = open(".alarm", "r")
+        hour = file.readline(1)
+        min = file.readline(2)
+        ampm = file.readline(3)
+
+    file = open(".sunrise", "r")
+        buffer = readline(1)
+
+    file = open(".sound", "r")
+        sound = readline(1)
+
+
+
 if __name__ == '__main__':
     # create NeoPixel object with appropriate configuration
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # intialize the library (must be called once before other functions)
     strip.begin()
-    # display 12:01
-    for x in range(0,10,1):
-        display(strip, Color(12,190,256), Color(15,5,5), 1, 2, x, 1)
-        time.sleep(1)
+
+    foreG = .05
+    foreB = .7
+    foreR = 1
+    backG = 1
+    backB = .3
+    backR = .3
+    fgbright = 1
+    bgbright = .07
+    display(strip, Color(256*foreG*fgbright,256*foreB*fgbright,256*foreR*fgbright), Color(256*backG*bgbright, 256*backB*bgbright, 256*backR*bgbright), 1, 2, 7, 1)
