@@ -142,15 +142,19 @@ def timedisplay(strip, colorfg, colorbg):
     display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3)
 
 def invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg):
-    """takes raw foreground RGB ratios and brightness, creates final RGB values with the background inverted"""
-    RAWbg[0] = 1 - RAWfg[0]
-    RAWbg[1] = 1 - RAWfg[1]
-    RAWbg[2] = 1 - RAWfg[2]
+    """takes raw background RGB ratios and brightness, creates final RGB values with the foreground inverted"""
+    # invert the background to foreground
+    RAWfg[0] = 1 - RAWbg[0]
+    RAWfg[1] = 1 - RAWbg[1]
+    RAWfg[2] = 1 - RAWbg[2]
+    # initalize the lists for the final values
     fg = [0, 0, 0]
     bg = [0, 0 ,0]
+    # mix the values with the brightness multipler
     for m in range(3):
         fg[m] = int(RAWfg[m] * 255 * BRIGHTfg)
         bg[m] = int(BRIGHTbg * 255 * RAWbg[m])
+    # clock function with the calculated colors
     timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
 
 
@@ -170,7 +174,7 @@ if __name__ == '__main__':
 
     # color setting
     RAWfg = [0, 0, 1]
-    RAWbg = [0.5, 0.9, 0]
+    RAWbg = [156/255, 64/255, 1]
 
     while True:
         invertANDscale(strip, BRIGHTfg, BRIGHTbg, RAWfg, RAWbg)
