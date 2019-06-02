@@ -143,21 +143,29 @@ if __name__ == '__main__':
     # intialize the library (must be called once before other functions)
     strip.begin()
 
-    fG = .5
-    fB = 1
-    fR = .1
-    bG = 1
-    bB = .3
-    bR = .3
-    fgbright = 1
-    bgbright = 0
-    abs_fG = int(256 * fG * fgbright)
-    abs_fB = int(256 * fB * fgbright)
-    abs_fR = int(256 * fR * fgbright)
-    abs_bG = int(256 * bG * bgbright)
-    abs_bB = int(256 * bB * bgbright)
-    abs_bR = int(256 * bR * bgbright)
+    # fG = .5
+    # fB = 1
+    # fR = .1
+    # bG = 1
+    # bB = .3
+    # bR = .3
+
+    BRIGHTfg = 1
+    BIRGHTbg = .2
+
+    RAWfg = [0.5, 0.1, 1]
+    RAWbg = 1 - RAWfg
+
+    fg = BRIGHTfg * 255 * RAWfg
+    bg = BRIGHTbg * 255 * RAWbg
+
+    # abs_fG = int(256 * fG * fgbright)
+    # abs_fB = int(256 * fB * fgbright)
+    # abs_fR = int(256 * fR * fgbright)
+    # abs_bG = int(256 * bG * bgbright)
+    # abs_bB = int(256 * bB * bgbright)
+    # abs_bR = int(256 * bR * bgbright)
 
     while True:
-        timedisplay(strip, Color(abs_fG, abs_fB, abs_fR), Color(abs_bG, abs_bB, abs_bR))
+        timedisplay(strip, Color(fg[0], fg[1], fg[2]), Color(bg[0], bg[1], bg[2]))
         #time.sleep(1)
