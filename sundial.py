@@ -160,8 +160,8 @@ if __name__ == '__main__':
     # color setting
     #RAWbg = [226/255, 201/255, 1] #skyblue
     #RAWbg = [1,1,1] #overcast
-    RAWbg = [39/255, 171/255, 79/255]
-    RAWfg = [1- RAWbg[0], 1 - RAWbg[1], 1 - RAWbg[2]]
+    RAWbg = [39./255., 171./255., 79./255.]
+    RAWfg = [1. - RAWbg[0], 1. - RAWbg[1], 1. - RAWbg[2]]
     print(RAWbg)
     print(RAWfg)
     # mix the values with the brightness multipler
