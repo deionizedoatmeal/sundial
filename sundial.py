@@ -100,6 +100,7 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
         strip.setPixelColor(b, colorfg)
     for c in background:
         strip.setPixelColor(c, colorbg)
+        print colorbg
     strip.show()
 
 def timedisplay(strip, colorfg, colorbg):
