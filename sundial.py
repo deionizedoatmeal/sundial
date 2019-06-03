@@ -100,7 +100,6 @@ def display(strip, colorfg, colorbg, digit0, digit1, digit2, digit3):
         strip.setPixelColor(b, colorfg)
     for c in background:
         strip.setPixelColor(c, colorbg)
-        print colorbg
     strip.show()
 
 def timedisplay(strip, colorfg, colorbg):
@@ -159,9 +158,9 @@ if __name__ == '__main__':
     fg = [0, 0, 0]
     bg = [0, 0, 0]
     # color setting
-    #RAWbg = [226/255, 201/255, 1] #skyblue
+    RAWbg = [226./255., 201./255., 1.] #skyblue
     #RAWbg = [1,1,1] #overcast
-    RAWbg = [39./255., 171./255., 79./255.]
+    #RAWbg = [39./255., 171./255., 79./255.]
     RAWfg = [1. - RAWbg[0], 1. - RAWbg[1], 1. - RAWbg[2]]
     print(RAWbg)
     print(RAWfg)
