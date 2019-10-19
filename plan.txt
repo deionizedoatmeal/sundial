@@ -1,0 +1,35 @@
+MAIN:
+	initalizes strip
+	initalizes color lists
+
+	WHILE:
+				readsettings():
+						reads a data files in which the alarm time/duration is set
+						sets to alarmtime
+						sets to alarmduration
+
+        getbrightness():
+						sensor inputs
+						returns brightness value
+						sets to the brightness varible
+
+				getcolor(alarmtime, alarmduration, colorsetting):
+						to determine apropriate color from alarm time, duration
+						sets to prebrightBG[] and prebrightFG[]
+
+				applybrightness(prebrightFG, prebrightBG, brightness):
+						returns postbrightFG[] postbrightBG[]
+
+				LEDredabel(prebrightFG, prebrightBG):
+						converts RGB postbrightFG/BG[]
+						returns convertFG[] and convertBG[]
+
+				timedigits():
+						gets digits from clock
+						returns digit0-3
+
+				display(digits0-3, neopixFG, neopixBG):
+						calls the board to renderdisplay
+
+				graphicdisplay(digits0-3, perbrightFG, prebrightBG):
+						on screen display
