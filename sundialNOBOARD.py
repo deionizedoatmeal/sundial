@@ -236,19 +236,20 @@ def getbrightness(alarmtime_hour, alarmtime_min, alarmduration):
     sunrisestart_rawmin = alarmtime_rawmin - alarmduration
     max = 1
     offset = .25
+    progress = 0
+    brightnessBG = max - offset
+    brightnessFG = max
+    ### DELETE THIS ^, put photoresitor code right here
+    #getphotoresistor()
 # preprescribed brightness for the sunrise duration
     if (nowtime_rawmin >= sunrisestart_rawmin) and (nowtime_rawmin <= alarmtime_rawmin):
-        progress = ((nowtime_rawmin - sunrisestart_rawmin) + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
+        progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
         brightnessBG = (max - offset)*progress
         brightnessFG = offset + brightnessBG
     if (nowtime_rawmin > alarmtime_rawmin) and (nowtime_rawmin < (alarmtime_rawmin + 15)):
+        progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
         brightnessBG = max - offset
         brightnessFG = max
-    else:
-        brightnessBG = max - offset
-        brightnessFG = max
-        ### DELETE THIS ^, put photoresitor code right here
-        #getphotoresistor()
     return brightnessBG, brightnessFG;
 
 def readsettings():
@@ -282,6 +283,8 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
     nowtime_sec = datetime.datetime.now().second
     nowtime_rawmin = nowtime_hour*60 + nowtime_min
     sunrisestart_rawmin = alarmtime_rawmin - alarmduration
+    progress = 0
+    sp = 0
 # pre sunrise
     if nowtime_rawmin == sunrisestart_rawmin - 2:
         initialBG = [prebrightBG[0],prebrightBG[1],prebrightBG[2]]
@@ -294,8 +297,8 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
         prebrightBG = [0,0,(128*i)]
         prebrightFG = [(63*i),0,(255*i)]
 # during the sunrise
-    if (nowtime_rawmin >= sunrisestart_rawmin) and (nowtime_rawmin <= alarmtime_rawmin):
-        progress = ((nowtime_rawmin - sunrisestart_rawmin) + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
+    if (nowtime_rawmin >= sunrisestart_rawmin) and (nowtime_rawmin < alarmtime_rawmin):
+        progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
 
 # !!! sunrise staging is fucked up rn, going 1,2,3,4,1,2,3,4 etc
 # FIRST SUNRISE STAGE
@@ -341,7 +344,7 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
             prebrightFG = [(255 - 82*sp),(255 - 39*sp),(204 + 26*sp)] #iterate to 173,216,230 LIGHT BLUE NUMBERS
             print("stage7")
 # post sunrise
-    if (nowtime_rawmin > alarmtime_rawmin) and (nowtime_rawmin < (alarmtime_rawmin + 15)):
+    if (nowtime_rawmin >= alarmtime_rawmin) and (nowtime_rawmin < (alarmtime_rawmin + 15)):
         prebrightBG = [255,255,204]
         prebrightFG = [173,216,230]
     if nowtime_rawmin == alarmtime_rawmin + 15:
@@ -354,8 +357,13 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
         i = nowtime_sec / 60
         prebrightBG = [(150*i),(25*i),(199*i)]
         prebrightFG = [(10*i),(132*i),(10*i)]
-
-    print(prebrightBG,prebrightFG)
+# debuging
+    # print("*****")
+    # print(progress, "progress")
+    # print(sp, "stage progress")
+    # print(nowtime_min, "min")
+    # print(nowtime_sec, "sec")
+    # print(prebrightBG,prebrightFG)
     return prebrightBG, prebrightFG;
 
 def applybrightness(prebrightBG, prebrightFG, brightnessBG, brightnessFG):
@@ -376,15 +384,12 @@ def LEDreadable(postbrightBG, postbrightFG):
 ########
 # MAIN #
 ########
-
 if __name__ == '__main__':
-    # create NeoPixel object with appropriate configuration
-#    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-
-    # intialize the library (must be called once before other functions)
-#    strip.begin()
-
-    #initalize lists
+# create NeoPixel object with appropriate configuration
+    # strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+# intialize the library (must be called once before other functions)
+    # strip.begin()
+# initalize lists
     M_prebrightBG = [0,0,0]
     M_prebrightFG = [0,0,0]
     M_postbrightBG = [0,0,0]
@@ -392,8 +397,6 @@ if __name__ == '__main__':
     M_LEDreadconvertBG = [0,0,0]
     M_LEDreadconvertFG = [0,0,0]
     M_digits = [0,0,0,0]
-
-
 # give title and dimensions to the onscreen display
     win = GraphWin('clock', 1300, 500)
 
@@ -401,30 +404,17 @@ if __name__ == '__main__':
 # WHILE in MAIN #
 #################
     while True: #processing loop that the clock is countinously running
-# determines alarm time/duration and color setting
         M_alarmtime_hour, M_alarmtime_min, M_alarmduration, M_colorsetting, M_graphicalon = readsettings()
-
-# determines brightness setting from onboard photoresitor brightness is 0-1
         M_brightnessFG, M_brightnessBG = getbrightness(M_alarmtime_hour, M_alarmtime_min, M_alarmduration)
-
-# determines apropriate color based on the alarm
         M_prebrightBG, M_prebrightFG = getcolor(M_colorsetting, M_alarmtime_hour, M_alarmtime_min, M_alarmduration)
-
-# aplies the brightness factor to the RGB color values
         M_postbrightBG, M_postbrightFG = applybrightness(M_prebrightBG, M_prebrightFG, M_brightnessBG, M_brightnessFG)
-
-# convert RGB colors into something the WS2812 will understand
 #        LEDreadconvertBG, LEDreadconvertFG = LEDreadable(postbrightBG, postbrightFG)
-
-# get the right digits for time based on system clock
         M_digits = timedigits()
-
-# create the apropriate foreground and background lists based on digits
         M_backgroundLEDs, M_foregroundLEDs = LEDlistcreate(M_digits[0], M_digits[1], M_digits[2], M_digits[3])
 # finally, call the LED display
 
 # also call the graphical onscreen display
         if int(M_graphicalon) == 1:
             graphicaldisplay(M_backgroundLEDs, M_foregroundLEDs, M_postbrightBG, M_postbrightFG)
-
+# reduce thermal workload and hardware lifetime ?
         time.sleep(.25)
