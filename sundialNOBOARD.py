@@ -10,6 +10,7 @@ import subprocess
 #from neopixel import *
 from spidev import SpiDev
 from graphics import *
+from MCP3008class import MCP3008
 
 # LED strip configuration:
 LED_COUNT      = 129      # Number of LED pixels.
@@ -114,10 +115,9 @@ def graphicaldisplay(backgroundLEDs, foregroundLEDs, prebrightBG, prebrightFG):
     """takes lists of fore and background LEDs, as well as prebirghtness rgb values, displays in a window"""
 # convert background color to hexidecimal
     hexBG = rgb2hex(int(prebrightBG[0]), int(prebrightBG[1]), int(prebrightBG[2]))
-# convert foreground color to hexidecimal
+# convert foreground color to a hexienbiest
     hexFG = rgb2hex(int(prebrightFG[0]), int(prebrightFG[1]), int(prebrightFG[2]))
-
-# TOP ROW
+# okay yeah its kind of a bodge so what, it works... sorta
     for i in range(112,129,1):
         for x in foregroundLEDs:
             if i == (x+1):
@@ -177,7 +177,7 @@ def graphicaldisplay(backgroundLEDs, foregroundLEDs, prebrightBG, prebrightFG):
                 bgpixels = Circle(Point(200 + 50*(i-36),300), 25) # set center and radius
                 bgpixels.setFill(hexBG)
                 bgpixels.draw(win)
-# SIXTH ROW
+# 666th ROW
     for i in range(18,36,1):
         for x in foregroundLEDs:
             if i == (x+1):
@@ -207,6 +207,7 @@ def timedigits():
     digits = [0,0,0,0]
     digits[2] = datetime.datetime.now().minute // 10
     digits[3] = datetime.datetime.now().minute % 10
+# general relativity accounting for time dialation from orbital velocity
     if datetime.datetime.now().hour >= 12:
         PM = 1
         hour12pm = datetime.datetime.now().hour - 12
@@ -234,22 +235,41 @@ def getbrightness(alarmtime_hour, alarmtime_min, alarmduration):
     nowtime_sec = datetime.datetime.now().second
     nowtime_rawmin = nowtime_hour*60 + nowtime_min
     sunrisestart_rawmin = alarmtime_rawmin - alarmduration
-    max = 1
-    offset = .25
     progress = 0
-    brightnessBG = max - offset
-    brightnessFG = max
-    ### DELETE THIS ^, put photoresitor code right here
-    #getphotoresistor()
-# preprescribed brightness for the sunrise duration
+# various brightness settings
+    displaymax = 1  # brightest the display will be
+    displaymin = 0  # dimmest it will be
+    FGBGoffset = .25 # foreground and background difference
+    avgperiod = 10  # number of brightness readings to take running avg over
+    minphotoresist = 600 # set this to light conditions you want min brightness
+    maxphotoresist = 1030  # set this to where you want max
+# photoresitor read
+#    adc = MCP3008()                       # COMMENT BOFA THESE LINES
+#    photoresist = adc.read(channel = 0)   # *OUT* FOR NOBOARD TESTING
+    photoresist = maxphotoresist           # AND COMMENT THIS SHIT *IN* FOR NOBOARD TESTING
+# take running avg, covery into 0 -> 1 brightness
+    if len(runavg) < avgperiod:
+        for f in range(avgperiod - len(runavg)):
+            runavg.append(photoresist) # gets running avg up to necessary length
+            runavg.pop(0)
+    avgphotoresist = sum(runavg) / len(runavg)
+    brightnessFG = displaymax*(avgphotoresist - minphotoresist) / maxphotoresist
+# edgelord cases
+    if brightnessFG > displaymax:
+        brigtnessFG = displaymax
+    brightnessBG = brightnessFG - FGBGoffset
+    if brightnessBG < displaymin:
+        brightnessBG = displaymin
+
+# here the LORD preprescribes brightness for the sunrise duration and 15min post sunrise
     if (nowtime_rawmin >= sunrisestart_rawmin) and (nowtime_rawmin <= alarmtime_rawmin):
         progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
-        brightnessBG = (max - offset)*progress
-        brightnessFG = offset + brightnessBG
+        brightnessBG = (displaymax - FGBGoffset)*progress
+        brightnessFG = FGBGoffset + brightnessBG
     if (nowtime_rawmin > alarmtime_rawmin) and (nowtime_rawmin < (alarmtime_rawmin + 15)):
         progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
-        brightnessBG = max - offset
-        brightnessFG = max
+        brightnessBG = displaymax - FGBGoffset
+        brightnessFG = displaymax
     return brightnessBG, brightnessFG;
 
 def readsettings():
@@ -259,6 +279,7 @@ def readsettings():
     file3 = open("colorsetting", "r")
     file4 = open("graphicalsetting", "r")
     file6 = open("alarmtimemin", "r")
+# nobody ever taught me the right way to do data i/o okay
     if file1.mode == 'r':
         alarmtime_hour = file1.read()
     if file6.mode == 'r':
@@ -300,7 +321,9 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
     if (nowtime_rawmin >= sunrisestart_rawmin) and (nowtime_rawmin < alarmtime_rawmin):
         progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
 
-# !!! sunrise staging is fucked up rn, going 1,2,3,4,1,2,3,4 etc
+# yes i know that using the same if function over and over again is poor
+# style but figuring out the rgb value progression of a sunrise is
+# surpisingly hard and my brain is filled with oatmeal so kindly fuck off
 # FIRST SUNRISE STAGE
         if (progress < 0.14):
             sp = progress / 0.14
@@ -343,7 +366,7 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
             prebrightBG = [255,255,(0 + 204*sp)] #iterate to 255,255,204 LIGHT YELLOW
             prebrightFG = [(255 - 82*sp),(255 - 39*sp),(204 + 26*sp)] #iterate to 173,216,230 LIGHT BLUE NUMBERS
             print("stage7")
-# post sunrise
+# post sunrise aka thru the glory of god all things are possible
     if (nowtime_rawmin >= alarmtime_rawmin) and (nowtime_rawmin < (alarmtime_rawmin + 15)):
         prebrightBG = [255,255,204]
         prebrightFG = [173,216,230]
@@ -385,7 +408,7 @@ def LEDreadable(postbrightBG, postbrightFG):
 # MAIN #
 ########
 if __name__ == '__main__':
-# create NeoPixel object with appropriate configuration
+# create NeoPixel object with appropriate configuration, comment out these two lines for noboard testing
     # strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
 # intialize the library (must be called once before other functions)
     # strip.begin()
@@ -397,6 +420,7 @@ if __name__ == '__main__':
     M_LEDreadconvertBG = [0,0,0]
     M_LEDreadconvertFG = [0,0,0]
     M_digits = [0,0,0,0]
+    runavg = [1000]
 # give title and dimensions to the onscreen display
     win = GraphWin('clock', 1300, 500)
 
