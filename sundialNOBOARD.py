@@ -114,7 +114,7 @@ def graphicaldisplay(backgroundLEDs, foregroundLEDs, prebrightBG, prebrightFG):
     hexBG = webcolors.rgb_to_hex((int(prebrightBG[0]), int(prebrightBG[1]), int(prebrightBG[2])))
 # convert foreground color to a hexienbiest
     hexFG = webcolors.rgb_to_hex((int(prebrightFG[0]), int(prebrightFG[1]), int(prebrightFG[2])))
-# okay yeah its kind of a bodge so what, it works... sorta
+# okay yeah its kind of a bodge fuck off
     for i in range(112,129,1):
         for x in foregroundLEDs:
             if i == (x+1):
