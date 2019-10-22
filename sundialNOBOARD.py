@@ -7,6 +7,7 @@
 import datetime
 import time
 import subprocess
+import webcolors
 #from neopixel import *
 from spidev import SpiDev
 from graphics import *
@@ -107,16 +108,12 @@ def display(strip, colorfg, colorbg, backgroundLEDs, foregroundLEDs):
         strip.setPixelColor(w, colorbg)
     strip.show()
 
-def rgb2hex(r,g,b):
-    """converts r g and b values into hexidecimal"""
-    return "#{:02x}{:02x}{:02x}".format(r,g,b)
-
 def graphicaldisplay(backgroundLEDs, foregroundLEDs, prebrightBG, prebrightFG):
     """takes lists of fore and background LEDs, as well as prebirghtness rgb values, displays in a window"""
 # convert background color to hexidecimal
-    hexBG = rgb2hex(int(prebrightBG[0]), int(prebrightBG[1]), int(prebrightBG[2]))
+    hexBG = webcolors.rgb_to_hex((int(prebrightBG[0]), int(prebrightBG[1]), int(prebrightBG[2])))
 # convert foreground color to a hexienbiest
-    hexFG = rgb2hex(int(prebrightFG[0]), int(prebrightFG[1]), int(prebrightFG[2]))
+    hexFG = webcolors.rgb_to_hex((int(prebrightFG[0]), int(prebrightFG[1]), int(prebrightFG[2])))
 # okay yeah its kind of a bodge so what, it works... sorta
     for i in range(112,129,1):
         for x in foregroundLEDs:
@@ -329,43 +326,37 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
             sp = progress / 0.14
             prebrightBG = [(63*sp),0,(128 + 127*sp)] #iterate to 63,0,255 INDIGO
             prebrightFG = [(63 + 64*sp),0,255] #iterate to 127,0,255 VIOLET TEXT
-            print("stage1")
 # SECOND SUNRISE STAGE
         if (progress >= 0.14) and (progress < 0.28):
             sp = (progress - 0.14) / 0.14
             prebrightBG = [(63 + 64*sp),0,255] #iterate to 127,0,255 VIOLET
             prebrightFG = [(127 + 126*sp),(0 + 192*sp),(255 - 52*sp)] #iterate to 255,192,203 PINK TEXT
-            print("stage2")
 # THIRD SUNRISE STAGE
         if (progress >= 0.28) and (progress < 0.42):
             sp = (progress - 0.28) / 0.14
             prebrightBG = [(127 + 126*sp),(0 + 192*sp),(255 - 52*sp)] #iterate to 255,192,203 PINK
             prebrightFG = [255,(192 - 65*sp),(203 - 203*sp)] #iterate to 255,127,0 ORANGE NUMBERS
-            print("stage3")
+
 # FOURTH SUNRISE STAGE
         if (progress >= 0.42) and (progress < 0.56):
             sp = (progress - 0.42) / 0.14
             prebrightBG = [255,(192 - 65*sp),(203 - 203*sp)] #iterate to 255,127,0 ORANGE
             prebrightFG = [255,(127 + 88*sp),0] #iterate to 255,215,0 GOLD NUMBERS
-            print("stage4")
 # FHITH SUNRISE STAGE
         if (progress >= 0.56) and (progress < 0.70):
             sp = (progress - 0.56) / 0.14
             prebrightBG = [255,(127 + 88*sp),0] #iterate to 255,215,0 GOLD
             prebrightFG = [255,(215 + 40*sp),0] #iterate to 255,255,0 YELLOW NUMBERS
-            print("stage5")
 # SIXTH SUNRISE STAGE
         if (progress >= 0.70) and (progress < 0.84):
             sp = (progress - 0.70) / 0.14
             prebrightBG = [255,(215 + 40*sp),0] #iterate to 255,255,0 YELLOW
             prebrightFG = [255,255,(0 + 204*sp)] #iterate to 255,255,204 LIGHT YELLOW NUMBERS
-            print("stage6")
 # FINAL SUNRISE STAGE
         if (progress >= 0.84) and (progress <= 1 ):
             sp = (progress - 0.84) / 0.14
             prebrightBG = [255,255,(0 + 204*sp)] #iterate to 255,255,204 LIGHT YELLOW
             prebrightFG = [(255 - 82*sp),(255 - 39*sp),(204 + 26*sp)] #iterate to 173,216,230 LIGHT BLUE NUMBERS
-            print("stage7")
 # post sunrise aka thru the glory of god all things are possible
     if (nowtime_rawmin >= alarmtime_rawmin) and (nowtime_rawmin < (alarmtime_rawmin + 15)):
         prebrightBG = [255,255,204]
