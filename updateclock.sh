@@ -21,7 +21,7 @@ git clone https://github.com/deionizedoatmeal/sundial.git
 echo REPO CLONED
 
 # dependencies
-sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel datetime time subprocess webcolors spidev
+sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel datetime subprocess webcolors spidev
 echo DEPENDENCIES INSTALLED
 
 # move scripts to bin
