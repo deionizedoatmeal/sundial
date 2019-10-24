@@ -11,7 +11,8 @@ import webcolors
 #from neopixel import *
 from spidev import SpiDev
 from graphics import *
-from MCP3008class import MCP3008
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_MCP3008
 
 # LED strip configuration:
 LED_COUNT      = 129      # Number of LED pixels.
@@ -233,24 +234,30 @@ def getbrightness(alarmtime_hour, alarmtime_min, alarmduration):
     nowtime_rawmin = nowtime_hour*60 + nowtime_min
     sunrisestart_rawmin = alarmtime_rawmin - alarmduration
     progress = 0
+
 # various brightness settings
     displaymax = 1  # brightest the display will be
     displaymin = 0  # dimmest it will be
     FGBGoffset = .25 # foreground and background difference
-    avgperiod = 10  # number of brightness readings to take running avg over
-    minphotoresist = 600 # set this to light conditions you want min brightness
-    maxphotoresist = 1030  # set this to where you want max
-# photoresitor read
-#    adc = MCP3008()                       # COMMENT BOFA THESE LINES
-#    photoresist = adc.read(channel = 0)   # *OUT* FOR NOBOARD TESTING
-    photoresist = maxphotoresist           # AND COMMENT THIS SHIT *IN* FOR NOBOARD TESTING
+    avgperiod = 15  # number of brightness readings to take running avg over
+    minvalue = 150 # set this to light conditions you want min brightness
+    maxvalue = 600  # set this to where you want max
+
+# photoresitor SPI read from MCP3008 ADC chip
+# hardware SPI configuration:
+    SPI_PORT   = 0
+    SPI_DEVICE = 0
+#    mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
+#    value = mcp.read_adc(0)
+    value = 500
 # take running avg, covery into 0 -> 1 brightness
     if len(runavg) < avgperiod:
         for f in range(avgperiod - len(runavg)):
-            runavg.append(photoresist) # gets running avg up to necessary length
+            runavg.append(value) # gets running avg up to necessary length
             runavg.pop(0)
-    avgphotoresist = sum(runavg) / len(runavg)
-    brightnessFG = displaymax*(avgphotoresist - minphotoresist) / maxphotoresist
+    avgvalue = sum(runavg) / len(runavg)
+    brightnessFG = displaymax*(avgvalue - minvalue) / maxvalue
+
 # edgelord cases
     if brightnessFG > displaymax:
         brigtnessFG = displaymax
