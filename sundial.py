@@ -9,7 +9,7 @@ import subprocess
 import webcolors
 from neopixel import *
 from spidev import SpiDev
-from graphics import *
+#from graphics import *
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
 
@@ -109,96 +109,96 @@ def display(strip, colorfg, colorbg, backgroundLEDs, foregroundLEDs):
         strip.setPixelColor(w, colorbg)
     strip.show()
 
-def graphicaldisplay(backgroundLEDs, foregroundLEDs, prebrightBG, prebrightFG):
-    """takes lists of fore and background LEDs, as well as prebirghtness rgb values, displays in a window"""
-# convert background color to hexidecimal
-    hexBG = webcolors.rgb_to_hex((int(prebrightBG[0]), int(prebrightBG[1]), int(prebrightBG[2])))
-# convert foreground color to a hexienbiest
-    hexFG = webcolors.rgb_to_hex((int(prebrightFG[0]), int(prebrightFG[1]), int(prebrightFG[2])))
-# okay yeah its kind of a bodge fuck off
-    for i in range(112,129,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgcircles = Circle(Point(1050 + -50*(i-112),100), 25) # set center and radius
-                fgcircles.setFill(hexFG)
-                fgcircles.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgcircles = Circle(Point(1050 + -50*(i-112),100), 25) # set center and radius
-                bgcircles.setFill(hexBG)
-                bgcircles.draw(win)
-# SECOND ROW
-    for i in range(94,112,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgpixels = Circle(Point(225 + 50*(i-94),150), 25) # set center and radius
-                fgpixels.setFill(hexFG)
-                fgpixels.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgpixels = Circle(Point(225 + 50*(i-94),150), 25) # set center and radius
-                bgpixels.setFill(hexBG)
-                bgpixels.draw(win)
-# THIRD ROW
-    for i in range(75,94,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgpixels = Circle(Point(200 + 50*(i-75),200), 25) # set center and radius
-                fgpixels.setFill(hexFG)
-                fgpixels.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgpixels = Circle(Point(200 + 50*(i-75),200), 25) # set center and radius
-                bgpixels.setFill(hexBG)
-                bgpixels.draw(win)
-# FORTH ROW
-    for i in range(55,75,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgpixels = Circle(Point(1125 - 50*(i-55),250), 25) # set center and radius
-                fgpixels.setFill(hexFG)
-                fgpixels.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgpixels = Circle(Point(1125 - 50*(i-55),250), 25) # set center and radius
-                bgpixels.setFill(hexBG)
-                bgpixels.draw(win)
-# FHITH ROW
-    for i in range(36,55,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgpixels = Circle(Point(200 + 50*(i-36),300), 25) # set center and radius
-                fgpixels.setFill(hexFG)
-                fgpixels.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgpixels = Circle(Point(200 + 50*(i-36),300), 25) # set center and radius
-                bgpixels.setFill(hexBG)
-                bgpixels.draw(win)
-# 666th ROW
-    for i in range(18,36,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgpixels = Circle(Point(1075 - 50*(i-18),350), 25) # set center and radius
-                fgpixels.setFill(hexFG)
-                fgpixels.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgpixels = Circle(Point(1075 - 50*(i-18),350), 25) # set center and radius
-                bgpixels.setFill(hexBG)
-                bgpixels.draw(win)
-# SEVENTH ROW
-    for i in range(1,18,1):
-        for x in foregroundLEDs:
-            if i == (x+1):
-                fgpixels = Circle(Point(200 + 50*i,400), 25) # set center and radius
-                fgpixels.setFill(hexFG)
-                fgpixels.draw(win)
-        for y in backgroundLEDs:
-            if i == (y+1):
-                bgpixels = Circle(Point(200 + 50*i,400), 25) # set center and radius
-                bgpixels.setFill(hexBG)
-                bgpixels.draw(win)
+# def graphicaldisplay(backgroundLEDs, foregroundLEDs, prebrightBG, prebrightFG):
+#     """takes lists of fore and background LEDs, as well as prebirghtness rgb values, displays in a window"""
+# # convert background color to hexidecimal
+#     hexBG = webcolors.rgb_to_hex((int(prebrightBG[0]), int(prebrightBG[1]), int(prebrightBG[2])))
+# # convert foreground color to a hexienbiest
+#     hexFG = webcolors.rgb_to_hex((int(prebrightFG[0]), int(prebrightFG[1]), int(prebrightFG[2])))
+# # okay yeah its kind of a bodge fuck off
+#     for i in range(112,129,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgcircles = Circle(Point(1050 + -50*(i-112),100), 25) # set center and radius
+#                 fgcircles.setFill(hexFG)
+#                 fgcircles.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgcircles = Circle(Point(1050 + -50*(i-112),100), 25) # set center and radius
+#                 bgcircles.setFill(hexBG)
+#                 bgcircles.draw(win)
+# # SECOND ROW
+#     for i in range(94,112,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgpixels = Circle(Point(225 + 50*(i-94),150), 25) # set center and radius
+#                 fgpixels.setFill(hexFG)
+#                 fgpixels.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgpixels = Circle(Point(225 + 50*(i-94),150), 25) # set center and radius
+#                 bgpixels.setFill(hexBG)
+#                 bgpixels.draw(win)
+# # THIRD ROW
+#     for i in range(75,94,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgpixels = Circle(Point(200 + 50*(i-75),200), 25) # set center and radius
+#                 fgpixels.setFill(hexFG)
+#                 fgpixels.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgpixels = Circle(Point(200 + 50*(i-75),200), 25) # set center and radius
+#                 bgpixels.setFill(hexBG)
+#                 bgpixels.draw(win)
+# # FORTH ROW
+#     for i in range(55,75,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgpixels = Circle(Point(1125 - 50*(i-55),250), 25) # set center and radius
+#                 fgpixels.setFill(hexFG)
+#                 fgpixels.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgpixels = Circle(Point(1125 - 50*(i-55),250), 25) # set center and radius
+#                 bgpixels.setFill(hexBG)
+#                 bgpixels.draw(win)
+# # FHITH ROW
+#     for i in range(36,55,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgpixels = Circle(Point(200 + 50*(i-36),300), 25) # set center and radius
+#                 fgpixels.setFill(hexFG)
+#                 fgpixels.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgpixels = Circle(Point(200 + 50*(i-36),300), 25) # set center and radius
+#                 bgpixels.setFill(hexBG)
+#                 bgpixels.draw(win)
+# # 666th ROW
+#     for i in range(18,36,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgpixels = Circle(Point(1075 - 50*(i-18),350), 25) # set center and radius
+#                 fgpixels.setFill(hexFG)
+#                 fgpixels.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgpixels = Circle(Point(1075 - 50*(i-18),350), 25) # set center and radius
+#                 bgpixels.setFill(hexBG)
+#                 bgpixels.draw(win)
+# # SEVENTH ROW
+#     for i in range(1,18,1):
+#         for x in foregroundLEDs:
+#             if i == (x+1):
+#                 fgpixels = Circle(Point(200 + 50*i,400), 25) # set center and radius
+#                 fgpixels.setFill(hexFG)
+#                 fgpixels.draw(win)
+#         for y in backgroundLEDs:
+#             if i == (y+1):
+#                 bgpixels = Circle(Point(200 + 50*i,400), 25) # set center and radius
+#                 bgpixels.setFill(hexBG)
+#                 bgpixels.draw(win)
 
 def timedigits():
     """uses the system clock to seperate the current time out into it's four digits, returns a list of 4 digits"""
@@ -413,8 +413,8 @@ if __name__ == '__main__':
     M_digits = [0,0,0,0]
     runavg = [600]
 # give title and dimensions to the onscreen display
-    if int(M_graphicalon) == 1:
-        win = GraphWin('clock', 1300, 500)
+#    if int(M_graphicalon) == 1:
+#        win = GraphWin('clock', 1300, 500)
 
 #################
 # WHILE in MAIN #
@@ -430,7 +430,7 @@ if __name__ == '__main__':
 # finally, call the LED display
         display(strip, LEDreadFG, LEDreadBG, M_backgroundLEDs, M_foregroundLEDs)
 # also call the graphical onscreen display
-        if int(M_graphicalon) == 1:
-            graphicaldisplay(M_backgroundLEDs, M_foregroundLEDs, M_postbrightBG, M_postbrightFG)
+#        if int(M_graphicalon) == 1:
+#            graphicaldisplay(M_backgroundLEDs, M_foregroundLEDs, M_postbrightBG, M_postbrightFG)
 # reduce thermal workload and hardware lifetime ?
         time.sleep(.25)

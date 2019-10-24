@@ -6,9 +6,9 @@ echo CLOCK KILLED
 
 # presistant alarm settings
 cp sundial/colorsetting colorsetting
-cp sundial/armduration alarmduration
-cp sundial/armtimemin alarmtimemin
-cp sundial/armtimehour alarmtimehour
+cp sundial/alarmduration alarmduration
+cp sundial/alarmtimemin alarmtimemin
+cp sundial/alarmtimehour alarmtimehour
 cp sundial/graphicalsetting graphicalsetting
 echo SETTINGS SAVED
 
@@ -44,5 +44,5 @@ rm graphicalsetting
 echo ALARM SET
 
 # start the clock
-./sundial/sundial.py
+sudo ./sundial/sundial.py
 echo CLOCK RUNNING
