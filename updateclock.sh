@@ -20,15 +20,13 @@ echo OLD VERSION REMOVED
 git clone https://github.com/deionizedoatmeal/sundial.git
 echo REPO CLONED
 
-# dependencies
-sudo pip3 install adafruit-mcp3008 rpi_ws281x adafruit-circuitpython-neopixel datetime webcolors spidev
-echo DEPENDENCIES INSTALLED
-
 # move scripts to bin
-for f in sundial/*.sh; do
-  base_name='echo $f \ cut -d "." -f 1'
-
-sudo cp sundial/$f /bin/$base_name
+sudo cp sundial/setcolor.sh /bin/setcolor
+sudo cp sundial/setalarmduration.sh /bin/setalarmduration
+sudp cp sundial/setgraphical.sh /bin/setgraphical
+sudo cp sundial/setalarmtime.sh /bin/setalarmtime
+sudo cp sundial/updateclock.sh /bin/updateclock
+sudo cp sundial/installdependencies.sh /bin/installdependencies
 echo SCRIPTS DROPPED IN BIN
 
 # set alarm
