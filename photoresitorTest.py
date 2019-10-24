@@ -1,4 +1,4 @@
-from MCP3008class import MCP3008class
+from MCP3008class import MCP3008
 
-adc = MCP3008class()
+adc = MCP3008()
 print( adc.read( channel = 0 ) ) # if necessary perform several times
