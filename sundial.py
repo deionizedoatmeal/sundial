@@ -383,17 +383,13 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
 
 def applybrightness(prebrightBG, prebrightFG, brightnessBG, brightnessFG):
     """ takes the brightnesses and the rbg colors and mixes them, returning the rgb values with brightness applied"""
-    postbrightBG = [i * brightnessBG for i in prebrightBG]
-    postbrightFG = [j * brightnessFG for j in prebrightFG]
+    postbrightBG = [int(255* i * brightnessBG) for i in prebrightBG]
+    postbrightFG = [int(255* j * brightnessFG) for j in prebrightFG]
     return postbrightBG, postbrightFG;
 
 def LEDreadable(postbrightBG, postbrightFG):
     """takes rgb colors and converts them to something the WS2812 can understand, honestly have no idea how the color() function works, it just do"""
-    for i in postbrightBG:
-        LEDreadconvertBG[i] = Color(postbrightBG[i])
-    for j in postbrightFG[j]:
-        LEDreadconvertFG[i] = Color(postbrightFG[j])
-    return LEDreadconvertBG, LEDreadconvertFG;
+
 
 ########
 # MAIN #
@@ -424,7 +420,7 @@ if __name__ == '__main__':
         M_brightnessFG, M_brightnessBG = getbrightness(M_alarmtime_hour, M_alarmtime_min, M_alarmduration)
         M_prebrightBG, M_prebrightFG = getcolor(M_colorsetting, M_alarmtime_hour, M_alarmtime_min, M_alarmduration)
         M_postbrightBG, M_postbrightFG = applybrightness(M_prebrightBG, M_prebrightFG, M_brightnessBG, M_brightnessFG)
-        LEDreadBG, LEDreadFG = LEDreadable(postbrightBG, postbrightFG)
+        LEDreadBG, LEDreadFG = LEDreadable(M_postbrightBG, M_postbrightFG)
         M_digits = timedigits()
         M_backgroundLEDs, M_foregroundLEDs = LEDlistcreate(M_digits[0], M_digits[1], M_digits[2], M_digits[3])
 # finally, call the LED display
