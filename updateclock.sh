@@ -23,7 +23,7 @@ echo REPO CLONED
 # move scripts to bin
 sudo cp sundial/setcolor.sh /bin/setcolor
 sudo cp sundial/setalarmduration.sh /bin/setalarmduration
-sudp cp sundial/setgraphical.sh /bin/setgraphical
+sud0 cp sundial/setgraphical.sh /bin/setgraphical
 sudo cp sundial/setalarmtime.sh /bin/setalarmtime
 sudo cp sundial/updateclock.sh /bin/updateclock
 sudo cp sundial/installdependencies.sh /bin/installdependencies
