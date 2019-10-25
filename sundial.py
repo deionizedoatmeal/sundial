@@ -389,7 +389,9 @@ def applybrightness(prebrightBG, prebrightFG, brightnessBG, brightnessFG):
 
 def LEDreadable(postbrightBG, postbrightFG):
     """takes rgb colors and converts them to something the WS2812 can understand, honestly have no idea how the color() function works, it just do"""
-
+    LEDreadconvertBG = Color(postbrightBG[0], postbrightBG[1], postbrightBG[2])
+    LEDreadconvertFG = Color(postbrightFG[0], postbrightFG[1], postbrightFG[2])
+    return LEDreadconvertBG, LEDreadconvertFG;
 
 ########
 # MAIN #
