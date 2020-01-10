@@ -325,9 +325,7 @@ def getcolor(colorsetting, alarmtime_hour, alarmtime_min, alarmduration):
     if (nowtime_rawmin >= sunrisestart_rawmin) and (nowtime_rawmin < alarmtime_rawmin):
         progress = ((nowtime_rawmin - sunrisestart_rawmin)*60 + nowtime_sec) / (alarmduration*60) #seconds elapsed since alarm started / total seconds in alarm
 
-# yes i know that using the same if function over and over again is poor
-# style but figuring out the rgb value progression of a sunrise is
-# surpisingly hard and my brain is filled with oatmeal so kindly fuck off
+# yes i know that there's an easier way to do this but figuring out the rgb value progression of a sunrise is surpisingly hard and my brain is filled with oatmeal
 # FIRST SUNRISE STAGE
         if (progress < 0.14):
             sp = progress / 0.14
